@@ -23,12 +23,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
+@login_required
 def detail_view(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, "post/post_detail.html", {'object': post})
 
-
+@login_required
 def like_disliked(request, post_id):
     post = Post.objects.get(id=post_id)
     user = request.user
@@ -40,7 +40,7 @@ def like_disliked(request, post_id):
     url = reverse("post-detail", kwargs={"post_id": post.id})
     return HttpResponseRedirect(url)
 
-
+@login_required
 def load(request, post_id):
     if request.method == "POST":
         if request.POST.get("comment"):
@@ -54,7 +54,7 @@ def load(request, post_id):
     url = reverse("post-detail", kwargs={"post_id": post_id})
     return HttpResponseRedirect(url)
 
-
+@login_required
 def delete_comment(request, pk, c):
     comment = PostComment.objects.get(id=c)
     comment.delete()

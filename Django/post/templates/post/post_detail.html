@@ -4,7 +4,7 @@
 <div class="card ml-1">
     <div class="card-body">
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{% static 'post/images/user.jpg'%}"
+            <img class="rounded-circle article-img" src="{{object.post_image.url}}"
                  style="width: 150px; height: 150px;">
             <div class="media-body ml-4">
                 <div class="article-metadata">
@@ -45,7 +45,6 @@
         <div class="card-body">
             <a class="ml-3" href="{% url 'userhome' u.id%}">{{u.username}}</a>
             <h3 class="ml-3">{{c.content}}</h3>
-
             <small class="text-muted">{{c.date_comment| date:"F d Y"}}</small>
             {% if u == user%}
             <div class="row m-2">

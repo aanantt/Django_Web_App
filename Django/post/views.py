@@ -17,16 +17,18 @@ class PostListView(ListView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content', "post_image"]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
 @login_required
 def detail_view(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, "post/post_detail.html", {'object': post})
+
 
 @login_required
 def like_disliked(request, post_id):
@@ -39,6 +41,7 @@ def like_disliked(request, post_id):
     print("Total", post.likes.count())
     url = reverse("post-detail", kwargs={"post_id": post.id})
     return HttpResponseRedirect(url)
+
 
 @login_required
 def load(request, post_id):
@@ -54,6 +57,7 @@ def load(request, post_id):
     url = reverse("post-detail", kwargs={"post_id": post_id})
     return HttpResponseRedirect(url)
 
+
 @login_required
 def delete_comment(request, pk, c):
     comment = PostComment.objects.get(id=c)
@@ -61,11 +65,11 @@ def delete_comment(request, pk, c):
     url = reverse("post-detail", kwargs={"post_id": pk})
     return HttpResponseRedirect(url)
 
+
 @login_required
 def search(request):
     if request.method == "POST":
         if request.POST.get("search"):
-            print("text GOT")
             data = request.POST.get("search")
             post = Post.objects.filter(title__icontains=data)
             user = User.objects.filter(username__icontains=data)
@@ -73,5 +77,4 @@ def search(request):
                 'post': post,
                 'user_list': user,
             }
-            return render(request,'post/search.html', context)
-
+            return render(request, 'post/search.html', context)

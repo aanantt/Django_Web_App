@@ -4,7 +4,7 @@
 <div class="card ml-1">
     <div class="card-body">
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{% static 'post/images/user.jpg'%}"
+            <img class="rounded-circle article-img" src="{{profile.avatar.url}}"
                  style="width: 150px; height: 150px;">
             <div class="media-body ml-4">
                 <div class="article-metadata">
@@ -21,7 +21,7 @@
 <div class="card ml-1">
     <div class="card-body">
         <article class="media content-section">
-            <img class="rounded-circle article-img" src="{% static 'post/images/user.jpg'%}"
+            <img class="rounded-circle article-img" src="{{p.post_image.url}}"
                  style="width: 150px; height: 150px;">
             <div class="media-body ml-4">
                 <div class="article-metadata">
